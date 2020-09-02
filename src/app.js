@@ -4,7 +4,8 @@ const morgan = require('morgan');
 const cors = require('cors');
 const helmet = require('helmet');
 const { NODE_ENV } = require('./config');
-const charsheetsRouter = require('./charsheets/charsheets-router');
+const charactersRouter = require('./characters/characters-router');
+const itemsRouter = require('./items/items-router');
 const errorHandler = require('./error-handler');
 
 const app = express();
@@ -19,7 +20,8 @@ app.get('/', (req, res) => {
   res.send('Hello, world!');
 });
 
-app.use('/api/charsheets', charsheetsRouter);
+app.use('/api/characters', charactersRouter);
+app.use('/api/items', itemsRouter);
 
 app.use(errorHandler);
 

@@ -1,1 +1,1 @@
-TRUNCATE charsheets;
+TRUNCATE items, characters, users RESTART IDENTITY CASCADE;
