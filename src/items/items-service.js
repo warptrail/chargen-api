@@ -1,7 +1,7 @@
 const xss = require('xss');
 const Treeize = require('treeize');
 
-const ItemService = {
+const ItemsService = {
   getAllItems(knex) {
     return knex
       .from('items AS itm')
@@ -16,6 +16,10 @@ const ItemService = {
       )
       .leftJoin('characters AS chr', 'chr.id', 'itm.character_id')
       .leftJoin('users AS usr', 'itm.user_id', 'usr.id');
+  },
+
+  getById(knex, id) {
+    return ItemsService.getAllItems(knex).where('itm.id', id).first();
   },
 
   serializeItems(items) {
@@ -36,6 +40,18 @@ const ItemService = {
       user: itemData.user || {},
     };
   },
+
+  insertItem(knex, newItem) {
+    return knex
+      .insert(newItem)
+      .into('items')
+      .returning('*')
+      .then(([item]) => ItemsService.getById(knex, item.id));
+  },
+
+  deleteItem(knex, id) {
+    return knex('items').where({ id }).delete();
+  },
 };
 
 const userFields = ['usr.id AS user:id', 'usr.user_name AS user:user_name'];
@@ -44,6 +60,6 @@ const characterFields = [
   'chr.char_name AS character:character_name',
 ];
 
-module.exports = ItemService;
+module.exports = ItemsService;
 
 // TODO: Use xxs on serialize methods

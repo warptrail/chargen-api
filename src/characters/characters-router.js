@@ -70,6 +70,16 @@ charactersRouter
   .all(checkCharacterExists)
   .get((req, res) => {
     res.json(CharactersService.serializeCharacter(res.char));
+  })
+  .delete((req, res, next) => {
+    CharactersService.deleteCharacter(
+      req.app.get('db'),
+      req.params.character_id
+    )
+      .then(() => {
+        res.status(204).end();
+      })
+      .catch(next);
   });
 
 charactersRouter
