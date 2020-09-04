@@ -6,15 +6,64 @@ const CharactersService = require('./characters-services');
 
 const charactersRouter = express.Router();
 
-const bodyParser = express.json; // for POST & PATCH body parsing
+const bodyParser = express.json(); // for POST & PATCH body parsing
 
-charactersRouter.route('/').get((req, res, next) => {
-  CharactersService.getAllCharacters(req.app.get('db'))
-    .then((characters) => {
-      res.json(CharactersService.serializeCharacters(characters));
-    })
-    .catch(next);
-});
+charactersRouter
+  .route('/')
+  .get((req, res, next) => {
+    CharactersService.getAllCharacters(req.app.get('db'))
+      .then((characters) => {
+        res.json(CharactersService.serializeCharacters(characters));
+      })
+      .catch(next);
+  })
+  .post(bodyParser, (req, res, next) => {
+    const {
+      char_name,
+      title,
+      char_class,
+      race,
+      background,
+      alignment,
+      char_level,
+      strength,
+      dexterity,
+      constitution,
+      intelligence,
+      wisdom,
+      charisma,
+    } = req.body;
+    const newCharacter = {
+      char_name,
+      title,
+      char_class,
+      race,
+      background,
+      alignment,
+      char_level,
+      strength,
+      dexterity,
+      constitution,
+      intelligence,
+      wisdom,
+      charisma,
+      user_id: 1,
+    };
+    for (const [key, value] of Object.entries(newCharacter))
+      if (value == null)
+        return res.status(400).json({
+          error: `Missing ${key} in request body`,
+        });
+    CharactersService.insertCharacter(req.app.get('db'), newCharacter)
+      .then((character) => {
+        console.log(character);
+        res
+          .status(201)
+          .location(path.posix.join(req.originalUrl, `/${character.id}`))
+          .json(character);
+      })
+      .catch(next);
+  });
 
 charactersRouter
   .route('/:character_id')

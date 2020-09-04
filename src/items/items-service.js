@@ -16,7 +16,6 @@ const ItemService = {
       )
       .leftJoin('characters AS chr', 'chr.id', 'itm.character_id')
       .leftJoin('users AS usr', 'itm.user_id', 'usr.id');
-    // .groupBy('chr.id', 'usr.id');
   },
 
   serializeItems(items) {

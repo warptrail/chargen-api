@@ -30,13 +30,13 @@ const CharactersService = {
   getById(knex, id) {
     return CharactersService.getAllCharacters(knex).where('chr.id', id).first();
   },
-  insertCharacters(knex, newCharacter) {
+  insertCharacter(knex, newCharacter) {
     return knex
       .insert(newCharacter)
       .into('characters')
       .returning('*')
-      .then((rows) => {
-        return rows[0];
+      .then(([character]) => {
+        return CharactersService.getById(knex, character.id);
       });
   },
   deleteCharacter(knex, id) {
