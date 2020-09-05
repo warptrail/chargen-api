@@ -127,7 +127,7 @@ charactersRouter
       CharactersService.serializeUpdate(characterToUpdate)
     )
       .then((character) => {
-        return character;
+        res.status(204).end();
       })
       .catch(next);
   });
