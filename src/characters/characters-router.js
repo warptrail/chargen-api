@@ -80,6 +80,58 @@ charactersRouter
         res.status(204).end();
       })
       .catch(next);
+  })
+  .patch(bodyParser, (req, res, next) => {
+    const {
+      char_name,
+      title,
+      char_class,
+      race,
+      background,
+      alignment,
+      char_level,
+      strength,
+      dexterity,
+      constitution,
+      intelligence,
+      wisdom,
+      charisma,
+    } = req.body;
+    const characterToUpdate = {
+      id: req.params.character_id,
+      char_name,
+      title,
+      char_class,
+      race,
+      background,
+      alignment,
+      char_level,
+      strength,
+      dexterity,
+      constitution,
+      intelligence,
+      wisdom,
+      charisma,
+      user_id: 1,
+    };
+    const numberOfValues = Object.values(characterToUpdate).filter(Boolean)
+      .length;
+    if (numberOfValues === 0)
+      return res.status(400).json({
+        error: {
+          message: 'Request body must contain a changed value',
+        },
+      });
+
+    CharactersService.updateCharacter(
+      req.app.get('db'),
+      req.params.character_id,
+      characterToUpdate
+    )
+      .then((character) => {
+        return character;
+      })
+      .catch(next);
   });
 
 charactersRouter
