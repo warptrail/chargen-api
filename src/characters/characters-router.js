@@ -56,7 +56,6 @@ charactersRouter
         });
     CharactersService.insertCharacter(req.app.get('db'), newCharacter)
       .then((character) => {
-        console.log(character);
         res
           .status(201)
           .location(path.posix.join(req.originalUrl, `/${character.id}`))
@@ -98,7 +97,6 @@ charactersRouter
       charisma,
     } = req.body;
     const characterToUpdate = {
-      id: req.params.character_id,
       char_name,
       title,
       char_class,
@@ -126,7 +124,7 @@ charactersRouter
     CharactersService.updateCharacter(
       req.app.get('db'),
       req.params.character_id,
-      characterToUpdate
+      CharactersService.serializeUpdate(characterToUpdate)
     )
       .then((character) => {
         return character;

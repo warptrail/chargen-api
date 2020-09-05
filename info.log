@@ -80,3 +80,7 @@
 {"message":"response.json is not a function","level":"error"}
 {"message":"Cannot read property 'id' of undefined","level":"error"}
 {"message":"Cannot read property 'id' of undefined","level":"error"}
+{"message":"update \"characters\" set \"id\" = $1, \"char_name\" = $2, \"title\" = $3, \"char_class\" = $4, \"race\" = $5, \"background\" = $6, \"alignment\" = $7, \"char_level\" = $8, \"strength\" = $9, \"dexterity\" = $10, \"constitution\" = $11, \"intelligence\" = $12, \"wisdom\" = $13, \"charisma\" = $14, \"user\" = $15 where \"id\" = $16 - column \"user\" of relation \"characters\" does not exist","level":"error"}
+{"message":"update \"characters\" set \"id\" = $1, \"char_name\" = $2, \"title\" = $3, \"char_class\" = $4, \"race\" = $5, \"background\" = $6, \"alignment\" = $7, \"char_level\" = $8, \"strength\" = $9, \"dexterity\" = $10, \"constitution\" = $11, \"intelligence\" = $12, \"wisdom\" = $13, \"charisma\" = $14, \"user\" = $15 where \"id\" = $16 - column \"user\" of relation \"characters\" does not exist","level":"error"}
+{"message":"update \"characters\" set \"char_name\" = $1, \"title\" = $2, \"char_class\" = $3, \"race\" = $4, \"background\" = $5, \"alignment\" = $6, \"char_level\" = $7, \"strength\" = $8, \"dexterity\" = $9, \"constitution\" = $10, \"intelligence\" = $11, \"wisdom\" = $12, \"charisma\" = $13, \"user\" = $14 where \"id\" = $15 - column \"user\" of relation \"characters\" does not exist","level":"error"}
+{"message":"char_name is not defined","level":"error"}

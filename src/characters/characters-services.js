@@ -77,6 +77,24 @@ const CharactersService = {
     };
   },
 
+  serializeUpdate(character) {
+    return {
+      char_name: character.char_name,
+      title: character.title,
+      char_class: character.char_class,
+      race: character.race,
+      background: character.background,
+      alignment: character.alignment,
+      char_level: character.char_level,
+      strength: character.strength,
+      dexterity: character.dexterity,
+      constitution: character.constitution,
+      intelligence: character.intelligence,
+      wisdom: character.wisdom,
+      charisma: character.charisma,
+    };
+  },
+
   getItemsForCharacter(db, character_id) {
     return db
       .from('items AS itm')
