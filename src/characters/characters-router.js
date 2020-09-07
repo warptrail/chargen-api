@@ -4,7 +4,7 @@ const path = require('path');
 const logger = require('../logger');
 const CharactersService = require('./characters-services');
 
-const { requireAuth } = require('../middleware/basic-auth');
+const { requireAuth } = require('../middleware/jwt-auth');
 
 const charactersRouter = express.Router();
 
