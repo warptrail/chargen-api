@@ -4,6 +4,8 @@ const path = require('path');
 const logger = require('../logger');
 const CharactersService = require('./characters-services');
 
+const { requireAuth } = require('../middleware/basic-auth');
+
 const charactersRouter = express.Router();
 
 const bodyParser = express.json(); // for POST & PATCH body parsing
@@ -17,7 +19,7 @@ charactersRouter
       })
       .catch(next);
   })
-  .post(bodyParser, (req, res, next) => {
+  .post(requireAuth, bodyParser, (req, res, next) => {
     const {
       char_name,
       title,
@@ -47,13 +49,15 @@ charactersRouter
       intelligence,
       wisdom,
       charisma,
-      user_id: 1,
     };
     for (const [key, value] of Object.entries(newCharacter))
       if (value == null)
         return res.status(400).json({
           error: `Missing ${key} in request body`,
         });
+    // Set the user Id in the new character
+    newCharacter.user_id = req.user.id;
+
     CharactersService.insertCharacter(req.app.get('db'), newCharacter)
       .then((character) => {
         res

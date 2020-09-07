@@ -5,10 +5,10 @@ TRUNCATE
 
 INSERT INTO users (user_name, password)
 VALUES
-('warptrail', '1234'),
-('quantum-man', '1234'),
-('larry', '1234'),
-('space-cowboy', '1234');
+('warptrail', '$2a$12$vgG1xu3e9lWlQPIENX67aOrkjEmL5d5Yi0VG9SXZ9x/9s4zfne0wO'),
+('quantum-man', '$2a$12$A5Dme7f6JA8mAMQkhr.NE.fCBKcAGuxcJ5X9.8jOKupSSJU4t0zZi'),
+('larry', '$2a$12$teRCzDXYFbBHx02hCittdOtDVC/U1XAS3SLquZMs8MjeCkyAAhi2i'),
+('space-cowboy', '$2a$12$YB0w7J/Kd0KC8Bt6Vq09Qey808Um3TM89qTkYr7pBLRMBb0GOOroC');
 
 INSERT INTO characters (char_name, title, char_class, race, background, alignment, char_level, strength, dexterity, constitution, intelligence, wisdom, charisma, user_id)
 VALUES
