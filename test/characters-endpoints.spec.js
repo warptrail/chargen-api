@@ -86,5 +86,24 @@ describe('Characters Endpoints', function () {
           .expect(404, { error: 'Character does not exist' });
       });
     });
+
+    context('Given there are characters in the database', () => {
+      beforeEach('insert characters', () =>
+        helpers.seedCharactersTable(db, testUsers, testCharacters, testItems)
+      );
+
+      it('responds with 200 and the specified character', () => {
+        const characterId = 2;
+        const expectedCharacter = helpers.makeExpectedCharacter(
+          testUsers,
+          testCharacters[characterId - 1],
+          testItems
+        );
+
+        return supertest(app)
+          .get(`/api/characters/${characterId}`)
+          .expect(200, expectedCharacter);
+      });
+    });
   });
 });
