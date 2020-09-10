@@ -105,5 +105,27 @@ describe('Characters Endpoints', function () {
           .expect(200, expectedCharacter);
       });
     });
+
+    context('Given an XSS attack thing', () => {
+      const testUser = helpers.makeUsersArray()[1];
+      const {
+        maliciousCharacter,
+        expectedCharacter,
+      } = helpers.makeMaliciousCharacter(testUser);
+
+      beforeEach('insert malicious character', () => {
+        return helpers.seedMaliciousCharacter(db, testUser, maliciousCharacter);
+      });
+
+      it('removes XSS attack content', () => {
+        return supertest(app)
+          .get(`/api/characters/${maliciousCharacter.id}`)
+          .expect(200)
+          .expect((res) => {
+            expect(res.body.char_name).to.eql(expectedCharacter.char_name);
+            expect(res.body.title).to.eql(expectedCharacter.title);
+          });
+      });
+    });
   });
 });
