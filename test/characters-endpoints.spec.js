@@ -36,7 +36,12 @@ describe('Characters Endpoints', function () {
 
     context('Given there are characters in the database', () => {
       beforeEach('insert characters', () => {
-        helpers.seedCharactersTable(db, testUsers, testCharacters, testItems);
+        return helpers.seedCharactersTable(
+          db,
+          testUsers,
+          testCharacters,
+          testItems
+        );
       });
 
       it('GET /characters responds with 200 and all of the characters', () => {
@@ -68,6 +73,17 @@ describe('Characters Endpoints', function () {
             expect(res.body[0].char_name).to.eql(expectedCharacter.char_name);
             expect(res.body[0].title).to.eql(expectedCharacter.title);
           });
+      });
+    });
+  });
+
+  describe('GET /api/characters/:character_id', () => {
+    context('Given no characters', () => {
+      it('responds with 404', () => {
+        const characterId = 999999;
+        return supertest(app)
+          .get(`/api/characters/${characterId}`)
+          .expect(404, { error: 'Character does not exist' });
       });
     });
   });
