@@ -56,7 +56,7 @@ describe('Characters Endpoints', function () {
         expectedCharacter,
       } = helpers.makeMaliciousCharacter(testUser);
 
-      beforeEach('insert malicious character', () => {
+      beforeEach('insert malicious thing', () => {
         return helpers.seedMaliciousCharacter(db, testUser, maliciousCharacter);
       });
 

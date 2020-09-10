@@ -1,4 +1,4 @@
-// const bcrypt = require('bcryptjs');
+const bcrypt = require('bcryptjs');
 // const jwt = require('jsonwebtoken');
 
 function makeUsersArray() {
@@ -112,8 +112,8 @@ function makeItemsArray(users, characters) {
       item_type: 'trinket',
       item_description: 'a smooth grey stone with a vibe about it',
       item_abilities: '+2 to all perception checks',
-      character_id: 1,
-      user_id: 1,
+      character_id: characters[0].id,
+      user_id: users[0].id,
     },
     {
       id: 2,
@@ -121,8 +121,8 @@ function makeItemsArray(users, characters) {
       item_type: 'off-hand',
       item_description: 'a purple umbrella that chimes in the rain',
       item_abilities: '+1 to charisma',
-      character_id: 2,
-      user_id: 1,
+      character_id: characters[0].id,
+      user_id: users[1].id,
     },
     {
       id: 3,
@@ -130,8 +130,8 @@ function makeItemsArray(users, characters) {
       item_type: 'weapon',
       item_description: 'a mysterious dagger.',
       item_abilities: '+1 to all stealth checks',
-      character_id: 2,
-      user_id: 1,
+      character_id: characters[0].id,
+      user_id: users[2].id,
     },
     {
       id: 4,
@@ -139,16 +139,16 @@ function makeItemsArray(users, characters) {
       item_type: 'armor',
       item_description: 'a shield that can emit a bubble of invisibility',
       item_abilities: 'invisible for 10 minutes with 24 hour recharge',
-      character_id: 1,
-      user_id: 1,
+      character_id: characters[0].id,
+      user_id: users[3].id,
     },
   ];
 }
 
 function makeCharactersFixtures() {
   const testUsers = makeUsersArray();
-  const testCharacters = makeCharactersArray();
-  const testItems = makeItemsArray();
+  const testCharacters = makeCharactersArray(testUsers);
+  const testItems = makeItemsArray(testUsers, testCharacters);
   return { testUsers, testCharacters, testItems };
 }
 
@@ -193,7 +193,10 @@ function seedCharactersTable(db, users, characters, items = []) {
 }
 
 function seedUsersTable(db, users) {
-  const preppedUsers = users.map((user) => ({ ...user }));
+  const preppedUsers = users.map((user) => ({
+    ...user,
+    password: bcrypt.hashSync(user.password, 1),
+  }));
   return db
     .into('users')
     .insert(preppedUsers)
@@ -213,14 +216,14 @@ function makeExpectedCharacter(users, character, items = []) {
   const number_of_items = characterItems.length;
 
   return {
-    id: parseInt(character.id),
+    id: character.id,
     char_name: character.char_name,
     title: character.title,
     char_class: character.char_class,
     race: character.race,
     background: character.background,
     alignment: character.alignment,
-    char_level: parseInt(character.char_level),
+    char_level: character.char_level,
     strength: character.strength,
     dexterity: character.dexterity,
     constitution: character.constitution,
