@@ -139,5 +139,27 @@ describe('Characters Endpoints', function () {
           .expect(404, { error: 'Character does not exist' });
       });
     });
+
+    context(
+      'Given there are items for specific character in the database',
+      () => {
+        beforeEach('insert characters', () =>
+          helpers.seedCharactersTable(db, testUsers, testCharacters, testItems)
+        );
+
+        it('responds with 200 and the specified items', () => {
+          const characterId = 1;
+          const expectedItems = helpers.makeExpectedCharacterItems(
+            testUsers,
+            characterId,
+            testItems
+          );
+
+          return supertest(app)
+            .get(`/api/characters/${characterId}/items`)
+            .expect(200, expectedItems);
+        });
+      }
+    );
   });
 });

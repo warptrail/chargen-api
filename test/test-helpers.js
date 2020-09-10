@@ -238,6 +238,27 @@ function makeExpectedCharacter(users, character, items = []) {
   };
 }
 
+function makeExpectedCharacterItems(users, characterId, items) {
+  const expectedItems = items.filter(
+    (item) => item.character_id === characterId
+  );
+
+  return expectedItems.map((item) => {
+    const itemUser = users.find((user) => user.id === item.user_id);
+    return {
+      id: item.id,
+      item_name: item.item_name,
+      item_type: item.item_type,
+      item_description: item.item_description,
+      item_abilities: item.item_abilities,
+      user: {
+        id: itemUser.id,
+        user_name: itemUser.user_name,
+      },
+    };
+  });
+}
+
 function makeMaliciousCharacter(user) {
   const maliciousCharacter = {
     id: 911,
@@ -280,6 +301,7 @@ module.exports = {
   makeCharactersArray,
   makeItemsArray,
   makeCharactersFixtures,
+  makeExpectedCharacterItems,
   cleanTables,
   seedCharactersTable,
   makeExpectedCharacter,
