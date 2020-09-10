@@ -145,6 +145,13 @@ function makeItemsArray(users, characters) {
   ];
 }
 
+function makeCharactersFixtures() {
+  const testUsers = makeUsersArray();
+  const testCharacters = makeCharactersArray();
+  const testItems = makeItemsArray();
+  return { testUsers, testCharacters, testItems };
+}
+
 function cleanTables(db) {
   return db.transaction((trx) =>
     trx
@@ -167,7 +174,25 @@ function cleanTables(db) {
   );
 }
 
-function seedUsers(db, users) {
+function seedCharactersTable(db, users, characters, items = []) {
+  return db.transaction(async (trx) => {
+    await seedUsersTable(trx, users);
+    await trx.into('characters').insert(characters);
+    // update the auto sequence to match the forced id values
+    await trx.raw('SELECT setval(\'characters_id_seq\', ?)', [
+      characters[characters.length - 1].id,
+    ]);
+    // only insert items if there are some, also update the sequence counter
+    if (items.length) {
+      await trx.into('items').insert(items);
+      await trx.raw('SELECT setval(\'items_id_seq\', ?)', [
+        items[items.length - 1].id,
+      ]);
+    }
+  });
+}
+
+function seedUsersTable(db, users) {
   const preppedUsers = users.map((user) => ({ ...user }));
   return db
     .into('users')
@@ -178,9 +203,83 @@ function seedUsers(db, users) {
     );
 }
 
+function makeExpectedCharacter(users, character, items = []) {
+  const user = users.find((u) => u.id === character.user_id);
+
+  const characterItems = items.filter(
+    (item) => item.character_id === character.id
+  );
+
+  const number_of_items = characterItems.length;
+
+  return {
+    id: parseInt(character.id),
+    char_name: character.char_name,
+    title: character.title,
+    char_class: character.char_class,
+    race: character.race,
+    background: character.background,
+    alignment: character.alignment,
+    char_level: parseInt(character.char_level),
+    strength: character.strength,
+    dexterity: character.dexterity,
+    constitution: character.constitution,
+    intelligence: character.intelligence,
+    wisdom: character.wisdom,
+    charisma: character.charisma,
+    user: {
+      id: user.id,
+      user_name: user.user_name,
+    },
+    number_of_items,
+  };
+}
+
+function makeMaliciousCharacter(user) {
+  const maliciousCharacter = {
+    id: 911,
+    char_name: 'Hacker Man <script>alert("xss");</script>',
+    title:
+      'Attack of the injection!  <img src="https://url.to.file.which/does-not.exist">. But not <strong>all</strong> bad.',
+    char_class: 'barbarian',
+    race: 'elf',
+    background: 'A fabricated origin story',
+    alignment: 'chaotic neutral',
+    char_level: 99,
+    strength: 99,
+    dexterity: 99,
+    constitution: 99,
+    intelligence: 99,
+    wisdom: 99,
+    charisma: 99,
+    user_id: user.id,
+  };
+  const expectedCharacter = {
+    ...makeExpectedCharacter([user], maliciousCharacter),
+    char_name: 'Hacker Man &lt;script&gt;alert("xss");&lt;/script&gt;',
+    title:
+      'Attack of the injection!  <img src="https://url.to.file.which/does-not.exist">. But not <strong>all</strong> bad.',
+  };
+  return {
+    maliciousCharacter,
+    expectedCharacter,
+  };
+}
+
+function seedMaliciousCharacter(db, user, character) {
+  return seedUsersTable(db, [user]).then(() =>
+    db.into('characters').insert([character])
+  );
+}
+
 module.exports = {
   makeUsersArray,
   makeCharactersArray,
   makeItemsArray,
+  makeCharactersFixtures,
   cleanTables,
+  seedCharactersTable,
+  makeExpectedCharacter,
+  makeMaliciousCharacter,
+  seedMaliciousCharacter,
 };

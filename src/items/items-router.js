@@ -72,7 +72,7 @@ async function checkItemExists(req, res, next) {
 
     if (!item)
       return res.status(404).json({
-        error: 'Character does not exist',
+        error: 'Item does not exist',
       });
 
     res.item = item;

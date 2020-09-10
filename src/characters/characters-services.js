@@ -56,24 +56,23 @@ const CharactersService = {
     // 'treeize' only accepts arrays of objects
     // trick to use a single object:
     const characterData = characterTree.grow([character]).getData()[0];
-
     return {
       id: characterData.id,
       char_name: xss(characterData.char_name),
       title: xss(characterData.title),
-      char_class: characterData.char_class,
-      race: characterData.race,
-      background: characterData.background,
-      alignment: characterData.alignment,
-      char_level: characterData.char_level,
-      strength: characterData.strength,
-      dexterity: characterData.dexterity,
-      constitution: characterData.constitution,
-      intelligence: characterData.intelligence,
-      wisdom: characterData.wisdom,
-      charisma: characterData.charisma,
+      char_class: xss(characterData.char_class),
+      race: xss(characterData.race),
+      background: xss(characterData.background),
+      alignment: xss(characterData.alignment),
+      char_level: parseFloat(characterData.char_level),
+      strength: parseFloat(characterData.strength),
+      dexterity: parseFloat(characterData.dexterity),
+      constitution: parseFloat(characterData.constitution),
+      intelligence: parseFloat(characterData.intelligence),
+      wisdom: parseFloat(characterData.wisdom),
+      charisma: parseFloat(characterData.charisma),
       user: characterData.user || {},
-      number_of_items: characterData.number_of_items,
+      number_of_items: parseFloat(characterData.number_of_items),
     };
   },
 
