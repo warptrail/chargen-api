@@ -128,4 +128,16 @@ describe('Characters Endpoints', function () {
       });
     });
   });
+
+  describe('GET /api/characters/:character_id/items', () => {
+    context('Given no characters', () => {
+      beforeEach(() => helpers.seedUsersTable(db, testUsers));
+      it('responds with 404', () => {
+        const characterId = 999999;
+        return supertest(app)
+          .get(`/api/characters/${characterId}/items`)
+          .expect(404, { error: 'Character does not exist' });
+      });
+    });
+  });
 });

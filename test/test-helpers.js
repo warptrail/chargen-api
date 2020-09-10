@@ -285,4 +285,5 @@ module.exports = {
   makeExpectedCharacter,
   makeMaliciousCharacter,
   seedMaliciousCharacter,
+  seedUsersTable,
 };
