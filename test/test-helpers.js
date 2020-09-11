@@ -1,5 +1,5 @@
 const bcrypt = require('bcryptjs');
-// const jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 
 function makeUsersArray() {
   return [
@@ -152,6 +152,25 @@ function makeCharactersFixtures() {
   return { testUsers, testCharacters, testItems };
 }
 
+function postNewCharacter(userId) {
+  return {
+    char_name: 'Varian Wrynn',
+    title: 'King of Stormwind',
+    char_class: 'Fighter',
+    race: 'Human',
+    background: 'First Born of King Llane and Queen Taria.',
+    alignment: 'Lawful Good',
+    char_level: 55,
+    strength: 13,
+    dexterity: 16,
+    constitution: 12,
+    intelligence: 14,
+    wisdom: 9,
+    charisma: 10,
+    user_id: userId,
+  };
+}
+
 function cleanTables(db) {
   return db.transaction((trx) =>
     trx
@@ -296,12 +315,22 @@ function seedMaliciousCharacter(db, user, character) {
   );
 }
 
+function makeAuthHeader(user, secret = process.env.JWT_SECRET) {
+  const token = jwt.sign({ user_id: user.id }, secret, {
+    subject: user.user_name,
+    algorithm: 'HS256',
+  });
+  return `Bearer ${token}`;
+}
+
 module.exports = {
   makeUsersArray,
   makeCharactersArray,
   makeItemsArray,
   makeCharactersFixtures,
   makeExpectedCharacterItems,
+  makeAuthHeader,
+  postNewCharacter,
   cleanTables,
   seedCharactersTable,
   makeExpectedCharacter,

@@ -162,4 +162,63 @@ describe('Characters Endpoints', function () {
       }
     );
   });
+
+  describe('POST /api/characters', () => {
+    beforeEach('insert users', () => helpers.seedUsersTable(db, testUsers));
+
+    it('creates a new character, responding with 201 and the new character', () => {
+      const testUser = testUsers[0];
+      const newCharacter = helpers.postNewCharacter(testUser.id);
+
+      return supertest(app)
+        .post('/api/characters')
+        .set('authorization', helpers.makeAuthHeader(testUser))
+        .send(newCharacter)
+        .expect(201)
+        .expect((res) => {
+          expect(res.body).to.have.property('id');
+          expect(res.body.char_name).to.eql(newCharacter.char_name);
+          expect(res.body.title).to.eql(newCharacter.title);
+          expect(res.body.char_class).to.eql(newCharacter.char_class);
+          expect(res.body.race).to.eql(newCharacter.race);
+          expect(res.body.background).to.eql(newCharacter.background);
+          expect(res.body.alignment).to.eql(newCharacter.alignment);
+          expect(parseFloat(res.body.char_level)).to.eql(
+            newCharacter.char_level
+          );
+          expect(parseFloat(res.body.strength)).to.eql(newCharacter.strength);
+          expect(parseFloat(res.body.dexterity)).to.eql(newCharacter.dexterity);
+          expect(parseFloat(res.body.constitution)).to.eql(
+            newCharacter.constitution
+          );
+          expect(parseFloat(res.body.intelligence)).to.eql(
+            newCharacter.intelligence
+          );
+          expect(parseFloat(res.body.wisdom)).to.eql(newCharacter.wisdom);
+          expect(parseFloat(res.body.charisma)).to.eql(newCharacter.charisma);
+        })
+        .expect((res) =>
+          db
+            .from('characters')
+            .select('*')
+            .where({ id: res.body.id })
+            .first()
+            .then((row) => {
+              expect(row.char_name).to.eql(newCharacter.char_name);
+              expect(row.title).to.eql(newCharacter.title);
+              expect(row.char_class).to.eql(newCharacter.char_class);
+              expect(row.race).to.eql(newCharacter.race);
+              expect(row.background).to.eql(newCharacter.background);
+              expect(row.alignment).to.eql(newCharacter.alignment);
+              expect(row.char_level).to.eql(newCharacter.char_level);
+              expect(row.strength).to.eql(newCharacter.strength);
+              expect(row.dexterity).to.eql(newCharacter.dexterity);
+              expect(row.constitution).to.eql(newCharacter.constitution);
+              expect(row.intelligence).to.eql(newCharacter.intelligence);
+              expect(row.wisdom).to.eql(newCharacter.wisdom);
+              expect(row.charisma).to.eql(newCharacter.charisma);
+            })
+        );
+    });
+  });
 });
