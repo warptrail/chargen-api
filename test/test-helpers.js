@@ -171,6 +171,25 @@ function postNewCharacter(userId) {
   };
 }
 
+function postPatchedCharacter(userId) {
+  return {
+    char_name: 'TROGDOR!',
+    title: 'Dragon Man',
+    char_class: 'fighter',
+    race: 'dragon-born',
+    background: 'The System is Down! The System is Down. Beep Boop Bop.',
+    alignment: 'Lawful Evil',
+    char_level: 29,
+    strength: 18,
+    dexterity: 16,
+    constitution: 18,
+    intelligence: 16,
+    wisdom: 18,
+    charisma: 2,
+    user_id: userId,
+  };
+}
+
 function cleanTables(db) {
   return db.transaction((trx) =>
     trx
@@ -331,6 +350,7 @@ module.exports = {
   makeExpectedCharacterItems,
   makeAuthHeader,
   postNewCharacter,
+  postPatchedCharacter,
   cleanTables,
   seedCharactersTable,
   makeExpectedCharacter,

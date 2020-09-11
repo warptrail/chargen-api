@@ -210,15 +210,96 @@ describe('Characters Endpoints', function () {
               expect(row.race).to.eql(newCharacter.race);
               expect(row.background).to.eql(newCharacter.background);
               expect(row.alignment).to.eql(newCharacter.alignment);
-              expect(row.char_level).to.eql(newCharacter.char_level);
-              expect(row.strength).to.eql(newCharacter.strength);
-              expect(row.dexterity).to.eql(newCharacter.dexterity);
-              expect(row.constitution).to.eql(newCharacter.constitution);
-              expect(row.intelligence).to.eql(newCharacter.intelligence);
-              expect(row.wisdom).to.eql(newCharacter.wisdom);
-              expect(row.charisma).to.eql(newCharacter.charisma);
+              expect(parseFloat(row.char_level)).to.eql(
+                newCharacter.char_level
+              );
+              expect(parseFloat(row.strength)).to.eql(newCharacter.strength);
+              expect(parseFloat(row.dexterity)).to.eql(newCharacter.dexterity);
+              expect(parseFloat(row.constitution)).to.eql(
+                newCharacter.constitution
+              );
+              expect(parseFloat(row.intelligence)).to.eql(
+                newCharacter.intelligence
+              );
+              expect(parseFloat(row.wisdom)).to.eql(newCharacter.wisdom);
+              expect(parseFloat(row.charisma)).to.eql(newCharacter.charisma);
             })
         );
+    });
+  });
+
+  describe('PATCH /api/characters/', () => {
+    beforeEach('insert characters', () =>
+      helpers.seedCharactersTable(db, testUsers, testCharacters, testItems)
+    );
+
+    it('Patches an existing character and returns a 204', () => {
+      const characterId = 2;
+      const testUser = testUsers[0];
+      const expectedCharacter = helpers.postPatchedCharacter(testUser.id);
+
+      return supertest(app)
+        .patch(`/api/characters/${characterId}`)
+        .set('Authorization', helpers.makeAuthHeader(testUser))
+        .send(expectedCharacter)
+        .expect(204)
+        .expect((res) =>
+          db
+            .from('characters')
+            .select('*')
+            .where({ id: characterId })
+            .first()
+            .then((row) => {
+              expect(row.char_name).to.eql(expectedCharacter.char_name);
+              expect(row.title).to.eql(expectedCharacter.title);
+              expect(row.char_class).to.eql(expectedCharacter.char_class);
+              expect(row.race).to.eql(expectedCharacter.race);
+              expect(row.background).to.eql(expectedCharacter.background);
+              expect(row.alignment).to.eql(expectedCharacter.alignment);
+              expect(parseFloat(row.char_level)).to.eql(
+                expectedCharacter.char_level
+              );
+              expect(parseFloat(row.strength)).to.eql(
+                expectedCharacter.strength
+              );
+              expect(parseFloat(row.dexterity)).to.eql(
+                expectedCharacter.dexterity
+              );
+              expect(parseFloat(row.constitution)).to.eql(
+                expectedCharacter.constitution
+              );
+              expect(parseFloat(row.intelligence)).to.eql(
+                expectedCharacter.intelligence
+              );
+              expect(parseFloat(row.wisdom)).to.eql(expectedCharacter.wisdom);
+              expect(parseFloat(row.charisma)).to.eql(
+                expectedCharacter.charisma
+              );
+            })
+        );
+    });
+  });
+
+  describe('DELETE /api/characters/:character_id', () => {
+    context('Given an empty database', () => {
+      it('Deletes a specific character and returns a 204', () => {
+        const characterId = 2;
+        return supertest(app)
+          .delete(`/api/characters/${characterId}`)
+          .expect(404);
+      });
+    });
+    context('Given there are characters in the database', () => {
+      beforeEach('insert characters', () =>
+        helpers.seedCharactersTable(db, testUsers, testCharacters, testItems)
+      );
+
+      it('Deletes a specific character and returns a 204', () => {
+        const characterId = 2;
+        return supertest(app)
+          .delete(`/api/characters/${characterId}`)
+          .expect(204);
+      });
     });
   });
 });

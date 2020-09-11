@@ -63,7 +63,7 @@ charactersRouter
         res
           .status(201)
           .location(path.posix.join(req.originalUrl, `/${character.id}`))
-          .json(character);
+          .json(CharactersService.serializeCharacter(character));
       })
       .catch(next);
   });
@@ -84,7 +84,7 @@ charactersRouter
       })
       .catch(next);
   })
-  .patch(bodyParser, (req, res, next) => {
+  .patch(requireAuth, bodyParser, (req, res, next) => {
     const {
       char_name,
       title,
@@ -114,7 +114,6 @@ charactersRouter
       intelligence,
       wisdom,
       charisma,
-      user_id: 1,
     };
     const numberOfValues = Object.values(characterToUpdate).filter(Boolean)
       .length;
@@ -125,13 +124,24 @@ charactersRouter
         },
       });
 
+    for (const [key, value] of Object.entries(characterToUpdate))
+      if (value == null)
+        return res.status(400).json({
+          error: `Missing ${key} in request body`,
+        });
+    // Set the user Id in the new character
+    characterToUpdate.user_id = req.user.id;
+
     CharactersService.updateCharacter(
       req.app.get('db'),
       req.params.character_id,
       CharactersService.serializeUpdate(characterToUpdate)
     )
       .then((character) => {
-        res.status(204).end();
+        res
+          .status(204)
+          .location(path.posix.join(req.originalUrl, `/${character.id}`))
+          .json(character);
       })
       .catch(next);
   });
