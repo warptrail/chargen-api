@@ -244,8 +244,8 @@ function seedUsersTable(db, users) {
     );
 }
 
-function makeExpectedCharacter(users, character, items = []) {
-  const user = users.find((u) => u.id === character.user_id);
+function makeExpectedCharacter(user, character, items = []) {
+  // const user = users.find((u) => u.id === character.user_id);
 
   const characterItems = items.filter(
     (item) => item.character_id === character.id
@@ -337,6 +337,7 @@ function seedMaliciousCharacter(db, user, character) {
 function makeAuthHeader(user, secret = process.env.JWT_SECRET) {
   const token = jwt.sign({ user_id: user.id }, secret, {
     subject: user.user_name,
+    expiresIn: process.env.JWT_EXPIRY,
     algorithm: 'HS256',
   });
   return `Bearer ${token}`;

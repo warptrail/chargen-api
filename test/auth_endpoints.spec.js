@@ -4,7 +4,7 @@ const helpers = require('./test-helpers');
 const supertest = require('supertest');
 const jwt = require('jsonwebtoken');
 
-describe.skip('Auth Endpoint', function () {
+describe('Auth Endpoint', function () {
   let db;
 
   const { testUsers } = helpers.makeCharactersFixtures();
@@ -63,6 +63,7 @@ describe.skip('Auth Endpoint', function () {
     });
 
     it('responds 200 and JWT auth token using secret when valid credentials', () => {
+      console.log('secret: ', process.env.JWT_SECRET);
       const userValidCreds = {
         user_name: testUser.user_name,
         password: testUser.password,
@@ -70,7 +71,11 @@ describe.skip('Auth Endpoint', function () {
       const expectedToken = jwt.sign(
         { user_id: testUser.id }, // payload
         process.env.JWT_SECRET,
-        { subject: testUser.user_name, algorithm: 'HS256' }
+        {
+          subject: testUser.user_name,
+          expiresIn: process.env.JWT_EXPIRY,
+          algorithm: 'HS256',
+        }
       );
       return supertest(app)
         .post('/api/auth/login')

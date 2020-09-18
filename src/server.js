@@ -1,4 +1,5 @@
 const app = require('./app');
+
 // npm dependencies
 const knex = require('knex');
 

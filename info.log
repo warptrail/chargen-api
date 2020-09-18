@@ -193,3 +193,314 @@
 {"message":"select \"chr\".\"id\", \"chr\".\"char_name\", \"chr\".\"title\", \"chr\".\"char_class\", \"chr\".\"race\", \"chr\".\"background\", \"chr\".\"alignment\", \"chr\".\"char_level\", \"chr\".\"strength\", \"chr\".\"dexterity\", \"chr\".\"constitution\", \"chr\".\"intelligence\", \"chr\".\"wisdom\", \"chr\".\"charisma\", \"usr\".\"id\" as \"user:id\", \"usr\".\"user_name\" as \"user:user_name\", count(DISTINCT itm) AS number_of_items from \"characters\" as \"chr\" left join \"items\" as \"itm\" on \"chr\".\"id\" = \"itm\".\"character_id\" left join \"users\" as \"usr\" on \"chr\".\"user_id\" = \"usr\".\"id\" where \"chr\".\"id\" = $1 group by \"chr\".\"id\", \"usr\".\"id\" limit $2 - invalid input syntax for type integer: \":character_id\"","level":"error"}
 {"message":"select \"chr\".\"id\", \"chr\".\"char_name\", \"chr\".\"title\", \"chr\".\"char_class\", \"chr\".\"race\", \"chr\".\"background\", \"chr\".\"alignment\", \"chr\".\"char_level\", \"chr\".\"strength\", \"chr\".\"dexterity\", \"chr\".\"constitution\", \"chr\".\"intelligence\", \"chr\".\"wisdom\", \"chr\".\"charisma\", \"usr\".\"id\" as \"user:id\", \"usr\".\"user_name\" as \"user:user_name\", count(DISTINCT itm) AS number_of_items from \"characters\" as \"chr\" left join \"items\" as \"itm\" on \"chr\".\"id\" = \"itm\".\"character_id\" left join \"users\" as \"usr\" on \"chr\".\"user_id\" = \"usr\".\"id\" where \"chr\".\"id\" = $1 group by \"chr\".\"id\", \"usr\".\"id\" limit $2 - invalid input syntax for type integer: \":character_id\"","level":"error"}
 {"message":"select \"chr\".\"id\", \"chr\".\"char_name\", \"chr\".\"title\", \"chr\".\"char_class\", \"chr\".\"race\", \"chr\".\"background\", \"chr\".\"alignment\", \"chr\".\"char_level\", \"chr\".\"strength\", \"chr\".\"dexterity\", \"chr\".\"constitution\", \"chr\".\"intelligence\", \"chr\".\"wisdom\", \"chr\".\"charisma\", \"usr\".\"id\" as \"user:id\", \"usr\".\"user_name\" as \"user:user_name\", count(DISTINCT itm) AS number_of_items from \"characters\" as \"chr\" left join \"items\" as \"itm\" on \"chr\".\"id\" = \"itm\".\"character_id\" left join \"users\" as \"usr\" on \"chr\".\"user_id\" = \"usr\".\"id\" where \"chr\".\"id\" = $1 group by \"chr\".\"id\", \"usr\".\"id\" limit $2 - invalid input syntax for type integer: \":character_id\"","level":"error"}
+{"message":"Undefined binding(s) detected when compiling FIRST. Undefined column(s): [usr.id] query: select \"chr\".\"id\", \"chr\".\"char_name\", \"chr\".\"title\", \"chr\".\"char_class\", \"chr\".\"race\", \"chr\".\"background\", \"chr\".\"alignment\", \"chr\".\"char_level\", \"chr\".\"strength\", \"chr\".\"dexterity\", \"chr\".\"constitution\", \"chr\".\"intelligence\", \"chr\".\"wisdom\", \"chr\".\"charisma\", \"usr\".\"id\" as \"user:id\", \"usr\".\"user_name\" as \"user:user_name\", count(DISTINCT itm) AS number_of_items from \"characters\" as \"chr\" left join \"items\" as \"itm\" on \"chr\".\"id\" = \"itm\".\"character_id\" left join \"users\" as \"usr\" on \"chr\".\"user_id\" = \"usr\".\"id\" where \"usr\".\"id\" = ? and \"chr\".\"id\" = ? group by \"chr\".\"id\", \"usr\".\"id\" limit ?","level":"error"}
+{"message":"Undefined binding(s) detected when compiling FIRST. Undefined column(s): [usr.id] query: select \"chr\".\"id\", \"chr\".\"char_name\", \"chr\".\"title\", \"chr\".\"char_class\", \"chr\".\"race\", \"chr\".\"background\", \"chr\".\"alignment\", \"chr\".\"char_level\", \"chr\".\"strength\", \"chr\".\"dexterity\", \"chr\".\"constitution\", \"chr\".\"intelligence\", \"chr\".\"wisdom\", \"chr\".\"charisma\", \"usr\".\"id\" as \"user:id\", \"usr\".\"user_name\" as \"user:user_name\", count(DISTINCT itm) AS number_of_items from \"characters\" as \"chr\" left join \"items\" as \"itm\" on \"chr\".\"id\" = \"itm\".\"character_id\" left join \"users\" as \"usr\" on \"chr\".\"user_id\" = \"usr\".\"id\" where \"usr\".\"id\" = ? and \"chr\".\"id\" = ? group by \"chr\".\"id\", \"usr\".\"id\" limit ?","level":"error"}
+{"message":"Undefined binding(s) detected when compiling FIRST. Undefined column(s): [usr.id] query: select \"chr\".\"id\", \"chr\".\"char_name\", \"chr\".\"title\", \"chr\".\"char_class\", \"chr\".\"race\", \"chr\".\"background\", \"chr\".\"alignment\", \"chr\".\"char_level\", \"chr\".\"strength\", \"chr\".\"dexterity\", \"chr\".\"constitution\", \"chr\".\"intelligence\", \"chr\".\"wisdom\", \"chr\".\"charisma\", \"usr\".\"id\" as \"user:id\", \"usr\".\"user_name\" as \"user:user_name\", count(DISTINCT itm) AS number_of_items from \"characters\" as \"chr\" left join \"items\" as \"itm\" on \"chr\".\"id\" = \"itm\".\"character_id\" left join \"users\" as \"usr\" on \"chr\".\"user_id\" = \"usr\".\"id\" where \"usr\".\"id\" = ? and \"chr\".\"id\" = ? group by \"chr\".\"id\", \"usr\".\"id\" limit ?","level":"error"}
+{"message":"Undefined binding(s) detected when compiling FIRST. Undefined column(s): [usr.id] query: select \"chr\".\"id\", \"chr\".\"char_name\", \"chr\".\"title\", \"chr\".\"char_class\", \"chr\".\"race\", \"chr\".\"background\", \"chr\".\"alignment\", \"chr\".\"char_level\", \"chr\".\"strength\", \"chr\".\"dexterity\", \"chr\".\"constitution\", \"chr\".\"intelligence\", \"chr\".\"wisdom\", \"chr\".\"charisma\", \"usr\".\"id\" as \"user:id\", \"usr\".\"user_name\" as \"user:user_name\", count(DISTINCT itm) AS number_of_items from \"characters\" as \"chr\" left join \"items\" as \"itm\" on \"chr\".\"id\" = \"itm\".\"character_id\" left join \"users\" as \"usr\" on \"chr\".\"user_id\" = \"usr\".\"id\" where \"usr\".\"id\" = ? and \"chr\".\"id\" = ? group by \"chr\".\"id\", \"usr\".\"id\" limit ?","level":"error"}
+{"message":"Undefined binding(s) detected when compiling FIRST. Undefined column(s): [usr.id] query: select \"chr\".\"id\", \"chr\".\"char_name\", \"chr\".\"title\", \"chr\".\"char_class\", \"chr\".\"race\", \"chr\".\"background\", \"chr\".\"alignment\", \"chr\".\"char_level\", \"chr\".\"strength\", \"chr\".\"dexterity\", \"chr\".\"constitution\", \"chr\".\"intelligence\", \"chr\".\"wisdom\", \"chr\".\"charisma\", \"usr\".\"id\" as \"user:id\", \"usr\".\"user_name\" as \"user:user_name\", count(DISTINCT itm) AS number_of_items from \"characters\" as \"chr\" left join \"items\" as \"itm\" on \"chr\".\"id\" = \"itm\".\"character_id\" left join \"users\" as \"usr\" on \"chr\".\"user_id\" = \"usr\".\"id\" where \"usr\".\"id\" = ? and \"chr\".\"id\" = ? group by \"chr\".\"id\", \"usr\".\"id\" limit ?","level":"error"}
+{"message":"Cannot read property 'id' of undefined","level":"error"}
+{"message":"Cannot read property 'id' of undefined","level":"error"}
+{"message":"Cannot read property 'id' of undefined","level":"error"}
+{"message":"Cannot read property 'id' of undefined","level":"error"}
+{"message":"Cannot read property 'id' of undefined","level":"error"}
+{"message":"Cannot read property 'id' of undefined","level":"error"}
+{"message":"Cannot read property 'id' of undefined","level":"error"}
+{"message":"Cannot read property 'id' of undefined","level":"error"}
+{"message":"Cannot read property 'id' of undefined","level":"error"}
+{"message":"Cannot read property 'id' of undefined","level":"error"}
+{"message":"Cannot read property 'id' of undefined","level":"error"}
+{"message":"Cannot read property 'id' of undefined","level":"error"}
+{"message":"Cannot read property 'id' of undefined","level":"error"}
+{"message":"Cannot read property 'id' of undefined","level":"error"}
+{"message":"Cannot read property 'id' of undefined","level":"error"}
+{"message":"Cannot read property 'id' of undefined","level":"error"}
+{"message":"Cannot read property 'id' of undefined","level":"error"}
+{"message":"Cannot read property 'id' of undefined","level":"error"}
+{"message":"Undefined binding(s) detected when compiling FIRST. Undefined column(s): [usr.id] query: select \"chr\".\"id\", \"chr\".\"char_name\", \"chr\".\"title\", \"chr\".\"char_class\", \"chr\".\"race\", \"chr\".\"background\", \"chr\".\"alignment\", \"chr\".\"char_level\", \"chr\".\"strength\", \"chr\".\"dexterity\", \"chr\".\"constitution\", \"chr\".\"intelligence\", \"chr\".\"wisdom\", \"chr\".\"charisma\", \"usr\".\"id\" as \"user:id\", \"usr\".\"user_name\" as \"user:user_name\", count(DISTINCT itm) AS number_of_items from \"characters\" as \"chr\" left join \"items\" as \"itm\" on \"chr\".\"id\" = \"itm\".\"character_id\" left join \"users\" as \"usr\" on \"chr\".\"user_id\" = \"usr\".\"id\" where \"usr\".\"id\" = ? and \"chr\".\"id\" = ? group by \"chr\".\"id\", \"usr\".\"id\" limit ?","level":"error"}
+{"message":"Cannot read property 'id' of undefined","level":"error"}
+{"message":"Cannot read property 'id' of undefined","level":"error"}
+{"message":"Cannot read property 'id' of undefined","level":"error"}
+{"message":"Cannot read property 'id' of undefined","level":"error"}
+{"message":"Cannot read property 'id' of undefined","level":"error"}
+{"message":"Cannot read property 'id' of undefined","level":"error"}
+{"message":"Cannot read property 'id' of undefined","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"Cannot read property 'id' of undefined","level":"error"}
+{"message":"Cannot read property 'id' of undefined","level":"error"}
+{"message":"Cannot read property 'id' of undefined","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"Cannot read property 'id' of undefined","level":"error"}
+{"message":"Cannot read property 'id' of undefined","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"Cannot read property 'id' of undefined","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"Cannot read property 'id' of undefined","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"Cannot read property 'id' of undefined","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"Cannot read property 'id' of undefined","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"Cannot read property 'id' of undefined","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"Cannot read property 'id' of undefined","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"Cannot read property 'id' of undefined","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"Undefined binding(s) detected when compiling FIRST. Undefined column(s): [usr.id] query: select \"chr\".\"id\", \"chr\".\"char_name\", \"chr\".\"title\", \"chr\".\"char_class\", \"chr\".\"race\", \"chr\".\"background\", \"chr\".\"alignment\", \"chr\".\"char_level\", \"chr\".\"strength\", \"chr\".\"dexterity\", \"chr\".\"constitution\", \"chr\".\"intelligence\", \"chr\".\"wisdom\", \"chr\".\"charisma\", \"usr\".\"id\" as \"user:id\", \"usr\".\"user_name\" as \"user:user_name\", count(DISTINCT itm) AS number_of_items from \"characters\" as \"chr\" left join \"items\" as \"itm\" on \"chr\".\"id\" = \"itm\".\"character_id\" left join \"users\" as \"usr\" on \"chr\".\"user_id\" = \"usr\".\"id\" where \"usr\".\"id\" = ? and \"chr\".\"id\" = ? group by \"chr\".\"id\", \"usr\".\"id\" limit ?","level":"error"}
+{"message":"Undefined binding(s) detected when compiling FIRST. Undefined column(s): [usr.id] query: select \"chr\".\"id\", \"chr\".\"char_name\", \"chr\".\"title\", \"chr\".\"char_class\", \"chr\".\"race\", \"chr\".\"background\", \"chr\".\"alignment\", \"chr\".\"char_level\", \"chr\".\"strength\", \"chr\".\"dexterity\", \"chr\".\"constitution\", \"chr\".\"intelligence\", \"chr\".\"wisdom\", \"chr\".\"charisma\", \"usr\".\"id\" as \"user:id\", \"usr\".\"user_name\" as \"user:user_name\", count(DISTINCT itm) AS number_of_items from \"characters\" as \"chr\" left join \"items\" as \"itm\" on \"chr\".\"id\" = \"itm\".\"character_id\" left join \"users\" as \"usr\" on \"chr\".\"user_id\" = \"usr\".\"id\" where \"usr\".\"id\" = ? and \"chr\".\"id\" = ? group by \"chr\".\"id\", \"usr\".\"id\" limit ?","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"select \"chr\".\"id\", \"chr\".\"char_name\", \"chr\".\"title\", \"chr\".\"char_class\", \"chr\".\"race\", \"chr\".\"background\", \"chr\".\"alignment\", \"chr\".\"char_level\", \"chr\".\"strength\", \"chr\".\"dexterity\", \"chr\".\"constitution\", \"chr\".\"intelligence\", \"chr\".\"wisdom\", \"chr\".\"charisma\", \"usr\".\"id\" as \"user:id\", \"usr\".\"user_name\" as \"user:user_name\", count(DISTINCT itm) AS number_of_items from \"characters\" as \"chr\" left join \"items\" as \"itm\" on \"chr\".\"id\" = \"itm\".\"character_id\" left join \"users\" as \"usr\" on \"chr\".\"user_id\" = \"usr\".\"id\" where \"usr\".\"id\" = $1 and \"chr\".\"id\" = $2 group by \"chr\".\"id\", \"usr\".\"id\" limit $3 - invalid input syntax for type integer: \"undefined\"","level":"error"}
+{"message":"select \"chr\".\"id\", \"chr\".\"char_name\", \"chr\".\"title\", \"chr\".\"char_class\", \"chr\".\"race\", \"chr\".\"background\", \"chr\".\"alignment\", \"chr\".\"char_level\", \"chr\".\"strength\", \"chr\".\"dexterity\", \"chr\".\"constitution\", \"chr\".\"intelligence\", \"chr\".\"wisdom\", \"chr\".\"charisma\", \"usr\".\"id\" as \"user:id\", \"usr\".\"user_name\" as \"user:user_name\", count(DISTINCT itm) AS number_of_items from \"characters\" as \"chr\" left join \"items\" as \"itm\" on \"chr\".\"id\" = \"itm\".\"character_id\" left join \"users\" as \"usr\" on \"chr\".\"user_id\" = \"usr\".\"id\" where \"usr\".\"id\" = $1 and \"chr\".\"id\" = $2 group by \"chr\".\"id\", \"usr\".\"id\" limit $3 - invalid input syntax for type integer: \"undefined\"","level":"error"}
+{"message":"select \"chr\".\"id\", \"chr\".\"char_name\", \"chr\".\"title\", \"chr\".\"char_class\", \"chr\".\"race\", \"chr\".\"background\", \"chr\".\"alignment\", \"chr\".\"char_level\", \"chr\".\"strength\", \"chr\".\"dexterity\", \"chr\".\"constitution\", \"chr\".\"intelligence\", \"chr\".\"wisdom\", \"chr\".\"charisma\", \"usr\".\"id\" as \"user:id\", \"usr\".\"user_name\" as \"user:user_name\", count(DISTINCT itm) AS number_of_items from \"characters\" as \"chr\" left join \"items\" as \"itm\" on \"chr\".\"id\" = \"itm\".\"character_id\" left join \"users\" as \"usr\" on \"chr\".\"user_id\" = \"usr\".\"id\" where \"usr\".\"id\" = $1 and \"chr\".\"id\" = $2 group by \"chr\".\"id\", \"usr\".\"id\" limit $3 - invalid input syntax for type integer: \"undefined\"","level":"error"}
+{"message":"select \"chr\".\"id\", \"chr\".\"char_name\", \"chr\".\"title\", \"chr\".\"char_class\", \"chr\".\"race\", \"chr\".\"background\", \"chr\".\"alignment\", \"chr\".\"char_level\", \"chr\".\"strength\", \"chr\".\"dexterity\", \"chr\".\"constitution\", \"chr\".\"intelligence\", \"chr\".\"wisdom\", \"chr\".\"charisma\", \"usr\".\"id\" as \"user:id\", \"usr\".\"user_name\" as \"user:user_name\", count(DISTINCT itm) AS number_of_items from \"characters\" as \"chr\" left join \"items\" as \"itm\" on \"chr\".\"id\" = \"itm\".\"character_id\" left join \"users\" as \"usr\" on \"chr\".\"user_id\" = \"usr\".\"id\" where \"usr\".\"id\" = $1 and \"chr\".\"id\" = $2 group by \"chr\".\"id\", \"usr\".\"id\" limit $3 - invalid input syntax for type integer: \"undefined\"","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"Cannot read property 'id' of undefined","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"insert into \"items\" (\"character_id\", \"item_abilities\", \"item_description\", \"item_name\", \"item_type\") values ($1, $2, $3, $4, $5) returning * - null value in column \"user_id\" violates not-null constraint","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"Cannot read property 'id' of undefined","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"Cannot read property 'id' of undefined","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"kinghenry has logged in","level":"info"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"res.json(...).catch is not a function","level":"error"}
+{"message":"Undefined binding(s) detected when compiling FIRST. Undefined column(s): [user_name] query: select * from \"users\" where \"user_name\" = ? limit ?","level":"error"}
+{"message":"Illegal arguments: undefined, string","level":"error"}
+{"message":"Username does not exist","level":"error"}
+{"message":"Username does not exist","level":"error"}
+{"message":"test-user-1 has logged in","level":"info"}
+{"message":"Undefined binding(s) detected when compiling FIRST. Undefined column(s): [user_name] query: select * from \"users\" where \"user_name\" = ? limit ?","level":"error"}
+{"message":"Illegal arguments: undefined, string","level":"error"}
+{"message":"Username does not exist","level":"error"}
+{"message":"Username does not exist","level":"error"}
+{"message":"test-user-1 has logged in","level":"info"}
+{"message":"Username does not exist","level":"error"}
+{"message":"Username does not exist","level":"error"}
+{"message":"Undefined binding(s) detected when compiling FIRST. Undefined column(s): [user_name] query: select * from \"users\" where \"user_name\" = ? limit ?","level":"error"}
+{"message":"Illegal arguments: undefined, string","level":"error"}
+{"message":"Username does not exist","level":"error"}
+{"message":"Username does not exist","level":"error"}
+{"message":"test-user-1 has logged in","level":"info"}
+{"message":"Missing 'user_name' in request body","level":"error"}
+{"message":"Missing 'password' in request body","level":"error"}
+{"message":"Username does not exist","level":"error"}
+{"message":"Username does not exist","level":"error"}
+{"message":"test-user-1 has logged in","level":"info"}
+{"message":"test-user-1 has logged in","level":"info"}
+{"message":"test-user-1 has logged in","level":"info"}
+{"message":"test-user-1 has logged in","level":"info"}
+{"message":"test-user-1 has logged in","level":"info"}
+{"message":"test-user-1 has logged in","level":"info"}
+{"message":"Missing 'user_name' in request body","level":"error"}
+{"message":"Missing 'password' in request body","level":"error"}
+{"message":"Username does not exist","level":"error"}
+{"message":"Username does not exist","level":"error"}
+{"message":"test-user-1 has logged in","level":"info"}
+{"message":"Missing 'user_name' in request body","level":"error"}
+{"message":"Missing 'password' in request body","level":"error"}
+{"message":"Username does not exist","level":"error"}
+{"message":"Username does not exist","level":"error"}
+{"message":"test-user-1 has logged in","level":"info"}
+{"message":"Missing 'user_name' in request body","level":"error"}
+{"message":"Missing 'password' in request body","level":"error"}
+{"message":"Username does not exist","level":"error"}
+{"message":"Username does not exist","level":"error"}
+{"message":"test-user-1 has logged in","level":"info"}
+{"message":"Missing 'user_name' in request body","level":"error"}
+{"message":"Missing 'password' in request body","level":"error"}
+{"message":"Username does not exist","level":"error"}
+{"message":"Username does not exist","level":"error"}
+{"message":"test-user-1 has logged in","level":"info"}
+{"message":"Missing 'user_name' in request body","level":"error"}
+{"message":"Missing 'password' in request body","level":"error"}
+{"message":"Username does not exist","level":"error"}
+{"message":"Username does not exist","level":"error"}
+{"message":"test-user-1 has logged in","level":"info"}
+{"message":"Missing 'user_name' in request body","level":"error"}
+{"message":"Missing 'password' in request body","level":"error"}
+{"message":"Username does not exist","level":"error"}
+{"message":"Username does not exist","level":"error"}
+{"message":"test-user-1 has logged in","level":"info"}
+{"message":"Missing 'user_name' in request body","level":"error"}
+{"message":"Missing 'password' in request body","level":"error"}
+{"message":"Username does not exist","level":"error"}
+{"message":"Username does not exist","level":"error"}
+{"message":"test-user-1 has logged in","level":"info"}

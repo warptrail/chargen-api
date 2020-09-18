@@ -1,12 +1,17 @@
 const express = require('express');
 const path = require('path');
 const ItemsService = require('./items-service');
+const logger = require('../logger');
+
+const { requireAuth } = require('../middleware/jwt-auth');
 
 const itemsRouter = express.Router();
 const bodyParser = express.json();
 
+// Endpoint for get and post a specific character's items
 itemsRouter
   .route('/')
+  .all(requireAuth)
   .get((req, res, next) => {
     ItemsService.getAllItems(req.app.get('db'))
       .then((items) => {
@@ -28,17 +33,19 @@ itemsRouter
       item_description,
       item_abilities,
       character_id,
-      user_id: 1,
+      user_id: req.user.id,
     };
 
+    // Validate items have values for each key
     for (const [key, value] of Object.entries(newItem))
-      if (value == null)
+      if (value === null) {
+        logger.error(`Missing '${key}' in request body`);
         return res.status(400).json({
           error: `Missing '${key}' in request body`,
         });
+      }
 
-    // newItem.user_id = req.user.id
-
+    // Add new item to database
     ItemsService.insertItem(req.app.get('db'), newItem)
       .then((item) => {
         res
@@ -51,6 +58,7 @@ itemsRouter
 
 itemsRouter
   .route('/:item_id')
+  .all(requireAuth)
   .all(checkItemExists)
   .get((req, res) => {
     res.json(ItemsService.serializeItem(res.item));
@@ -63,6 +71,7 @@ itemsRouter
       .catch(next);
   });
 
+// validation middleware to check if item exists
 async function checkItemExists(req, res, next) {
   try {
     const item = await ItemsService.getById(
@@ -70,10 +79,12 @@ async function checkItemExists(req, res, next) {
       req.params.item_id
     );
 
-    if (!item)
+    if (!item) {
+      logger.error('Item does not exist');
       return res.status(404).json({
         error: 'Item does not exist',
       });
+    }
 
     res.item = item;
     next();

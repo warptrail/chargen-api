@@ -28,9 +28,16 @@ describe('Characters Endpoints', function () {
   afterEach('clean the table', () => helpers.cleanTables(db));
 
   describe('GET /api/characters', () => {
+    const testUser = testUsers[0];
     context('Given no characters', () => {
+      beforeEach('insert users', () => {
+        return helpers.seedUsersTable(db, testUsers);
+      });
       it('responds with 200 and an empty list', () => {
-        return supertest(app).get('/api/characters').expect(200, []);
+        return supertest(app)
+          .get('/api/characters')
+          .set('authorization', helpers.makeAuthHeader(testUser))
+          .expect(200, []);
       });
     });
 
@@ -45,11 +52,15 @@ describe('Characters Endpoints', function () {
       });
 
       it('GET /characters responds with 200 and all of the characters', () => {
-        const expectedCharacters = testCharacters.map((character) =>
-          helpers.makeExpectedCharacter(testUsers, character, testItems)
+        const testCharactersPerUser = testCharacters.filter(
+          (char) => char.user_id === testUser.id
+        );
+        const expectedCharacters = testCharactersPerUser.map((character) =>
+          helpers.makeExpectedCharacter(testUser, character, testItems)
         );
         return supertest(app)
           .get('/api/characters')
+          .set('authorization', helpers.makeAuthHeader(testUser))
           .expect(200, expectedCharacters);
       });
     });
@@ -68,6 +79,7 @@ describe('Characters Endpoints', function () {
       it('removes XSS attack content', () => {
         return supertest(app)
           .get('/api/characters')
+          .set('authorization', helpers.makeAuthHeader(testUser))
           .expect(200)
           .expect((res) => {
             expect(res.body[0].char_name).to.eql(expectedCharacter.char_name);
@@ -78,11 +90,18 @@ describe('Characters Endpoints', function () {
   });
 
   describe('GET /api/characters/:character_id', () => {
+    const testUser = testUsers[0];
+
     context('Given no characters', () => {
+      beforeEach('insert users', () => {
+        return helpers.seedUsersTable(db, testUsers);
+      });
+
       it('responds with 404', () => {
         const characterId = 999999;
         return supertest(app)
           .get(`/api/characters/${characterId}`)
+          .set('authorization', helpers.makeAuthHeader(testUser))
           .expect(404, { error: 'Character does not exist' });
       });
     });
@@ -93,15 +112,16 @@ describe('Characters Endpoints', function () {
       );
 
       it('responds with 200 and the specified character', () => {
-        const characterId = 2;
+        const characterId = 1;
         const expectedCharacter = helpers.makeExpectedCharacter(
-          testUsers,
+          testUser,
           testCharacters[characterId - 1],
           testItems
         );
 
         return supertest(app)
           .get(`/api/characters/${characterId}`)
+          .set('authorization', helpers.makeAuthHeader(testUser))
           .expect(200, expectedCharacter);
       });
     });
@@ -120,6 +140,7 @@ describe('Characters Endpoints', function () {
       it('removes XSS attack content', () => {
         return supertest(app)
           .get(`/api/characters/${maliciousCharacter.id}`)
+          .set('authorization', helpers.makeAuthHeader(testUser))
           .expect(200)
           .expect((res) => {
             expect(res.body.char_name).to.eql(expectedCharacter.char_name);
@@ -130,12 +151,14 @@ describe('Characters Endpoints', function () {
   });
 
   describe('GET /api/characters/:character_id/items', () => {
+    const testUser = testUsers[0];
     context('Given no characters', () => {
       beforeEach(() => helpers.seedUsersTable(db, testUsers));
       it('responds with 404', () => {
         const characterId = 999999;
         return supertest(app)
           .get(`/api/characters/${characterId}/items`)
+          .set('authorization', helpers.makeAuthHeader(testUser))
           .expect(404, { error: 'Character does not exist' });
       });
     });
@@ -157,6 +180,7 @@ describe('Characters Endpoints', function () {
 
           return supertest(app)
             .get(`/api/characters/${characterId}/items`)
+            .set('authorization', helpers.makeAuthHeader(testUser))
             .expect(200, expectedItems);
         });
       }
@@ -234,7 +258,7 @@ describe('Characters Endpoints', function () {
     );
 
     it('Patches an existing character and returns a 204', () => {
-      const characterId = 2;
+      const characterId = 1;
       const testUser = testUsers[0];
       const expectedCharacter = helpers.postPatchedCharacter(testUser.id);
 
@@ -281,11 +305,17 @@ describe('Characters Endpoints', function () {
   });
 
   describe('DELETE /api/characters/:character_id', () => {
+    const testUser = testUsers[0];
     context('Given an empty database', () => {
+      beforeEach('seed users', () => {
+        helpers.seedUsersTable(db, testUsers);
+      });
+
       it('Deletes a specific character and returns a 204', () => {
-        const characterId = 2;
+        const characterId = 1;
         return supertest(app)
           .delete(`/api/characters/${characterId}`)
+          .set('authorization', helpers.makeAuthHeader(testUser))
           .expect(404);
       });
     });
@@ -295,9 +325,10 @@ describe('Characters Endpoints', function () {
       );
 
       it('Deletes a specific character and returns a 204', () => {
-        const characterId = 2;
+        const characterId = 1;
         return supertest(app)
           .delete(`/api/characters/${characterId}`)
+          .set('authorization', helpers.makeAuthHeader(testUser))
           .expect(204);
       });
     });

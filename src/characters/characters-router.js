@@ -10,16 +10,18 @@ const charactersRouter = express.Router();
 
 const bodyParser = express.json(); // for POST & PATCH body parsing
 
+// Endpoint for getting all characters and posting a new character
 charactersRouter
   .route('/')
-  .get((req, res, next) => {
-    CharactersService.getAllCharacters(req.app.get('db'))
-      .then((characters) => {
+  .all(requireAuth)
+  .get((req, res) => {
+    CharactersService.getAllCharacters(req.app.get('db'), req.user.id).then(
+      (characters) => {
         res.json(CharactersService.serializeCharacters(characters));
-      })
-      .catch(next);
+      }
+    );
   })
-  .post(requireAuth, bodyParser, (req, res, next) => {
+  .post(bodyParser, (req, res, next) => {
     const {
       char_name,
       title,
@@ -50,14 +52,20 @@ charactersRouter
       wisdom,
       charisma,
     };
+
+    // Validate keys all have values
     for (const [key, value] of Object.entries(newCharacter))
-      if (value == null)
+      if (value === null) {
+        logger.error(`Missing ${key} in request body`);
         return res.status(400).json({
           error: `Missing ${key} in request body`,
         });
+      }
+
     // Set the user Id in the new character
     newCharacter.user_id = req.user.id;
 
+    // Insert the new character in the database
     CharactersService.insertCharacter(req.app.get('db'), newCharacter)
       .then((character) => {
         res
@@ -68,13 +76,16 @@ charactersRouter
       .catch(next);
   });
 
+// Endpoint to get, delete and patch a specific character
 charactersRouter
   .route('/:character_id')
+  .all(requireAuth)
   .all(checkCharacterExists)
   .get((req, res) => {
     res.json(CharactersService.serializeCharacter(res.char));
   })
   .delete((req, res, next) => {
+    // Delete character from database
     CharactersService.deleteCharacter(
       req.app.get('db'),
       req.params.character_id
@@ -115,23 +126,32 @@ charactersRouter
       wisdom,
       charisma,
     };
+
+    // Check to see if any values have been updated, otherwise no need to fetch Patch
     const numberOfValues = Object.values(characterToUpdate).filter(Boolean)
       .length;
-    if (numberOfValues === 0)
+    if (numberOfValues === 0) {
+      logger.error('nothing has changed, patch not needed');
       return res.status(400).json({
         error: {
           message: 'Request body must contain a changed value',
         },
       });
+    }
 
+    // Validate all fields have values
     for (const [key, value] of Object.entries(characterToUpdate))
-      if (value == null)
+      if (value === null) {
+        logger.error(`Missing ${key} in request body`);
         return res.status(400).json({
           error: `Missing ${key} in request body`,
         });
+      }
+
     // Set the user Id in the new character
     characterToUpdate.user_id = req.user.id;
 
+    // Update the character in the database
     CharactersService.updateCharacter(
       req.app.get('db'),
       req.params.character_id,
@@ -146,8 +166,10 @@ charactersRouter
       .catch(next);
   });
 
+// Get the items for a specific character
 charactersRouter
   .route('/:character_id/items/')
+  .all(requireAuth)
   .all(checkCharacterExists)
   .get((req, res, next) => {
     CharactersService.getItemsForCharacter(
@@ -164,7 +186,8 @@ async function checkCharacterExists(req, res, next) {
   try {
     const char = await CharactersService.getById(
       req.app.get('db'),
-      req.params.character_id
+      req.params.character_id,
+      req.user.id
     );
 
     if (!char)

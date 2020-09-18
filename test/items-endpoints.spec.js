@@ -38,13 +38,12 @@ describe('Items Endpoints', function () {
         character_id: testCharacter.id,
       };
 
-      console.log(testCharacter, newItem);
       return supertest(app)
         .post('/api/items')
+        .set('authorization', helpers.makeAuthHeader(testUser))
         .send(newItem)
         .expect(201)
         .expect((res) => {
-          console.log('resbody', res.body);
           expect(res.body).to.have.property('id');
           expect(res.body.item_name).to.eql(newItem.item_name);
           expect(res.body.item_type).to.eql(newItem.item_type);
@@ -68,29 +67,5 @@ describe('Items Endpoints', function () {
             })
         );
     });
-
-    // const requiredFields = ['text', 'rating', 'thing_id'];
-
-    // requiredFields.forEach((field) => {
-    //   const testThing = testThings[0];
-    //   const testUser = testUsers[0];
-    //   const newReview = {
-    //     text: 'Test new review',
-    //     rating: 3,
-    //     thing_id: testThing.id,
-    //   };
-
-    //   it(`responds with 400 and an error message when the '${field}' is missing`, () => {
-    //     delete newReview[field];
-
-    //     return supertest(app)
-    //       .post('/api/items')
-    //       .set('authorization', helpers.makeAuthHeader(testUser))
-    //       .send(newReview)
-    //       .expect(400, {
-    //         error: `Missing '${field}' in request body`,
-    //       });
-    //   });
-    // });
   });
 });

@@ -2,7 +2,7 @@ const xss = require('xss');
 const Treeize = require('treeize');
 
 const CharactersService = {
-  getAllCharacters(knex) {
+  getAllCharacters(knex, user_id) {
     return knex
       .from('characters AS chr')
       .select(
@@ -25,10 +25,13 @@ const CharactersService = {
       )
       .leftJoin('items AS itm', 'chr.id', 'itm.character_id')
       .leftJoin('users AS usr', 'chr.user_id', 'usr.id')
+      .where('usr.id', user_id)
       .groupBy('chr.id', 'usr.id');
   },
-  getById(knex, id) {
-    return CharactersService.getAllCharacters(knex).where('chr.id', id).first();
+  getById(knex, id, user_id) {
+    return CharactersService.getAllCharacters(knex, user_id)
+      .where('chr.id', id)
+      .first();
   },
   insertCharacter(knex, newCharacter) {
     return knex
@@ -36,7 +39,11 @@ const CharactersService = {
       .into('characters')
       .returning('*')
       .then(([character]) => {
-        return CharactersService.getById(knex, character.id);
+        return CharactersService.getById(
+          knex,
+          character.id,
+          newCharacter.user_id
+        );
       });
   },
   deleteCharacter(knex, id) {
@@ -118,7 +125,6 @@ const CharactersService = {
     const itemTree = new Treeize();
 
     const itemData = itemTree.grow([item]).getData()[0];
-    console.log(itemData);
 
     return {
       id: itemData.id,

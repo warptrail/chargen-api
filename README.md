@@ -1,26 +1,51 @@
-# Express Boilerplate!
+# Chargen
 
-This is a boilerplate project used for starting new projects!
+## Fantasy Character Generator (API)
 
-## Set up
+**Description:** Create and store your Dungeons & Dragons characters with this tool. Add as many as you need, edit them, randomize their stats, and add special items to their inventories.
 
-Complete the following steps to start a new project (NEW-PROJECT-NAME):
+**Link to live app:** [https://chargen-client.vercel.app](https://chargen-client.vercel.app)
 
-1. Clone this repository to your local machine `git clone BOILERPLATE-URL NEW-PROJECTS-NAME`
-2. `cd` into the cloned repository
-3. Make a fresh start of the git history for this project with `rm -rf .git && git init`
-4. Install the node dependencies `npm install`
-5. Move the example Environment file to `.env` that will be ignored by git and read by the express server `mv example.env .env`
-6. Edit the contents of the `package.json` to use NEW-PROJECT-NAME instead of `"name": "express-boilerplate",`
+**Tech Stack:**
 
-## Scripts
+- **Backend** - Node.js - Express - Postgresql
+- **Frontend** - React
 
-Start the application `npm start`
+## Documentation on API
 
-Start nodemon for the application `npm run dev`
+This side of the codebase deals with storing user information and their related characters using a PostgreSQL database. The Character information is stored on a separate table than the Item information. There is a one-to-many relationship between characters and items.
 
-Run the tests `npm test`
+The Express Router is divided into three routes
 
-## Deploying
+1.  Characters
+2.  Items
+3.  Users
 
-When your new project is ready for deployment, add a new Heroku application with `heroku create`. This will make a new git remote called "heroku" and you can then `npm run deploy` which will push to this remote's master branch.
+The user authentication system is also handled in this codebase. It uses a JWT and the passwords are securely hashed when going into the database. See the package.json file for a list of dependencies.
+
+## Instructions to Clone:
+
+1. Clone from [Github](https://github.com/warptrail/chargen-client)
+2. Set up the client side from this [link](https://github.com/warptrail/chargen-api)
+3. Set up your postgres database and run npm migrate
+4. Make sure your .env file is set up with proper variable names
+5. Run `npm run dev` or `npm start` for the api back-end code
+6. Run `npm start` to open the client-side app
+
+## Screenshots:
+
+Login or create a new account first
+
+![](img/chargen_01_login.png)
+
+Go to your main menu
+
+![](img/chargen_02_main_menu.png)
+
+Make edits and review
+
+![](img/chargen_03_char_sheet.png)
+
+Add items
+
+![](img/chargen_04_items.png)
