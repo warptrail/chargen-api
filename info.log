@@ -504,3 +504,13 @@
 {"message":"Username does not exist","level":"error"}
 {"message":"Username does not exist","level":"error"}
 {"message":"test-user-1 has logged in","level":"info"}
+{"message":"warptrail has logged in","level":"info"}
+{"message":"howardstern69696969 has logged in","level":"info"}
+{"message":"demo has logged in","level":"info"}
+{"message":"Username does not exist","level":"error"}
+{"message":"demo has logged in","level":"info"}
+{"message":"demo has logged in","level":"info"}
+{"message":"demo has logged in","level":"info"}
+{"message":"Timmy has logged in","level":"info"}
+{"message":"warptrail has logged in","level":"info"}
+{"message":"insert into \"items\" (\"character_id\", \"item_abilities\", \"item_description\", \"item_name\", \"item_type\", \"user_id\") values ($1, $2, $3, $4, $5, $6) returning * - insert or update on table \"items\" violates foreign key constraint \"items_character_id_fkey\"","level":"error"}
